@@ -1,0 +1,30 @@
+# Git metadata backups
+.git
+.git.bak
+*.git.bak
+
+# WorkBuddy local workspace data
+.workbuddy/
+
+# Build artifacts
+build/
+build_prev_*/
+*.o
+*.d
+*.elf
+*.bin
+*.hex
+*.map
+*.axf
+*.lst
+
+# Large toolchain installers
+*.exe
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+Thumbs.db

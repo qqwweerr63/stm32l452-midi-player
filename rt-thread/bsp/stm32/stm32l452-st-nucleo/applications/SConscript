@@ -1,0 +1,11 @@
+from building import *
+
+cwd = GetCurrentDir()
+src = Glob('*.c') + Glob('*.cpp')
+# include playtune sub-directory sources
+src += Glob('playtune/*.c')
+CPPPATH = [cwd, cwd + '/playtune']
+
+group = DefineGroup('Applications', src, depend = [''], CPPPATH = CPPPATH)
+
+Return('group')
