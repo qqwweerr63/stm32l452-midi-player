@@ -84,13 +84,13 @@ python tools/msh_cmd.py "ls" "volume 30" "midiplay"
 
 ```text
 volume          # 查询，例如输出 current = 60%
-volume 30       # 设成 30%（晚上用）
-volume 60       # 设成 60%（白天默认，当前固件已设为 60）
+volume 30       # 设成 30%
+volume 60       # 设成 60%（默认值）
 volume 100      # 最大
 volume 0        # 静音
 ```
 
-设置值保存在 `/vol.cfg`，重启后自动恢复，启动时日志会出现 `[volume] restored 60% from /vol.cfg`。音量作用在映射前的音频信号上，不改变 PWM 静音点，蜂鸣器不会有直流发热问题。晚上嫌吵就设 20 或 30，白天调回 60。
+设置值保存在 `/vol.cfg`，开机自动恢复。音量作用在映射前的音频信号上，不改变 PWM 静音点，蜂鸣器不会有直流发热问题。
 
 响度诊断的做法是先 `midiplay` 开始播放，几秒后执行 `audiostat`：
 
@@ -192,15 +192,3 @@ bytestream 通常比原 `*.mid` 还小（miditones 是压缩），所以 32 KB �
     │   └── playtune/             # Playtune 合成器、波形表、示例乐谱
     └── board/ports/fal_cfg.h     # Flash 分区表（app 320KB + filesystem 192KB）
 ```
-
-## 8. 典型使用场景
-
-日常听歌：上传一次 `*.mid` → 复位 → `midiplay`。之后上电复位直接敲 `midiplay` 就能播，文件还在 Flash 里。
-
-晚上安静：`volume 25` 会自动保存，白天再 `volume 60` 调回。
-
-验证音频链路：敲 `builtin`，有声音说明 PWM、蜂鸣器、合成器都正常，问题只可能在 `*.mid` 文件或转换环节。
-
-换一首歌：`ymodem_send.py` 传新文件 → 复位 → `midiplay`。
-
-排查声音小或破音：播放中敲 `audiostat`，看峰值是否接近满量程、削波是否过多。
