@@ -1,3 +1,0 @@
-rsource "usb/Kconfig"
-rsource "fdt/Kconfig"
-rsource "virtio/Kconfig"
